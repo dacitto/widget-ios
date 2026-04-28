@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -64,7 +64,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		9BBA662F2FA0B5C80063E07F /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		9BBA662F2FA0B5C80063E07F /* Exceptions for "CounterWidget" folder in "CounterWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -74,7 +74,18 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		9BBA661B2FA0B5C60063E07F /* CounterWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (9BBA662F2FA0B5C80063E07F /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = CounterWidget; sourceTree = "<group>"; };
+		9BBA661B2FA0B5C60063E07F /* CounterWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9BBA662F2FA0B5C80063E07F /* Exceptions for "CounterWidget" folder in "CounterWidgetExtension" target */,
+			);
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = CounterWidget;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,8 +244,6 @@
 				9BBA661B2FA0B5C60063E07F /* CounterWidget */,
 			);
 			name = CounterWidgetExtension;
-			packageProductDependencies = (
-			);
 			productName = CounterWidgetExtension;
 			productReference = 9BBA66162FA0B5C60063E07F /* CounterWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -658,6 +667,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.dacitto.widget-ios.CounterWidget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -706,6 +716,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.dacitto.widget-ios.CounterWidget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

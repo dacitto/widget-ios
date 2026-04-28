@@ -1,4 +1,6 @@
 PODS:
+  - counter (1.0.0):
+    - ExpoModulesCore
   - EXConstants (18.0.13):
     - ExpoModulesCore
   - Expo (54.0.34):
@@ -1693,6 +1695,7 @@ PODS:
   - Yoga (0.0.0)
 
 DEPENDENCIES:
+  - counter (from `../modules/counter/ios`)
   - EXConstants (from `../node_modules/expo-constants/ios`)
   - Expo (from `../node_modules/expo`)
   - ExpoAsset (from `../node_modules/expo-asset/ios`)
@@ -1770,6 +1773,8 @@ DEPENDENCIES:
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 EXTERNAL SOURCES:
+  counter:
+    :path: "../modules/counter/ios"
   EXConstants:
     :path: "../node_modules/expo-constants/ios"
   Expo:
@@ -1921,6 +1926,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  counter: 2569ff42ca2f613ed079c026d6c6c9198c9df8e2
   EXConstants: 3feb66fd1d94202fc1f0946d74e029d8b224b60e
   Expo: e165e0db6ee12e51b5a914ef0758d309f28bdb4a
   ExpoAsset: cc98e16f65a64e58079d9ccad3b5eec2b57b9263
