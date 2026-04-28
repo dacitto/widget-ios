@@ -7,6 +7,7 @@
 
 import WidgetKit
 import SwiftUI
+import AppIntents
 
 func readCountFromSharedFile() -> Int {
     guard let containerURL = FileManager.default.containerURL(
@@ -48,10 +49,27 @@ struct SimpleEntry: TimelineEntry {
 struct CounterWidgetEntryView: View {
     var entry: Provider.Entry
 
-    var body: some View {
-        Text("\(entry.count)")
-            .font(.largeTitle)
-    }
+  var body: some View {
+      VStack(spacing: 12) {
+          Text("\(entry.count)")
+              .font(.largeTitle)
+
+          HStack(spacing: 12) {
+              Button(intent: DecrementCounterIntent()) {
+                  Text("-")
+                      .font(.title)
+              }
+              .buttonStyle(.plain)
+
+              Button(intent: IncrementCounterIntent()) {
+                  Text("+")
+                      .font(.title)
+              }
+              .buttonStyle(.plain)
+          }
+      }
+      .containerBackground(.fill.tertiary, for: .widget)
+  }
 }
 
 struct CounterWidget: Widget {
