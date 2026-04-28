@@ -84,6 +84,11 @@ struct CounterWidget: Widget {
             CounterWidgetEntryView(entry: entry)
                 .containerBackground(.fill.tertiary, for: .widget)
         }
+        .supportedFamilies([
+            .systemSmall,
+            .accessoryCircular,
+            .accessoryRectangular
+        ])
     }
 }
 
