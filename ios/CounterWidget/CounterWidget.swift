@@ -8,45 +8,49 @@
 import WidgetKit
 import SwiftUI
 
+func readCountFromSharedFile() -> Int {
+    guard let containerURL = FileManager.default.containerURL(
+        forSecurityApplicationGroupIdentifier: "group.com.widgetios.counter"
+    ) else {
+        return 0
+    }
+
+    let fileURL = containerURL.appendingPathComponent("count.txt")
+
+    guard let content = try? String(contentsOf: fileURL, encoding: .utf8),
+          let count = Int(content.trimmingCharacters(in: .whitespacesAndNewlines)) else {
+        return 0
+    }
+
+    return count
+}
+
 struct Provider: AppIntentTimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: ConfigurationAppIntent())
+        SimpleEntry(date: Date(), count: 0)
     }
 
     func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: configuration)
+        SimpleEntry(date: Date(), count: readCountFromSharedFile())
     }
-    
+
     func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
-        var entries: [SimpleEntry] = []
-
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, configuration: configuration)
-            entries.append(entry)
-        }
-
-        return Timeline(entries: entries, policy: .atEnd)
+        let entry = SimpleEntry(date: Date(), count: readCountFromSharedFile())
+        return Timeline(entries: [entry], policy: .never)
     }
-
-//    func relevances() async -> WidgetRelevances<ConfigurationAppIntent> {
-//        // Generate a list containing the contexts this widget is relevant in.
-//    }
 }
 
 struct SimpleEntry: TimelineEntry {
     let date: Date
-    let configuration: ConfigurationAppIntent
+    let count: Int
 }
 
-struct CounterWidgetEntryView : View {
+struct CounterWidgetEntryView: View {
     var entry: Provider.Entry
 
     var body: some View {
-      Text("5")
-             .font(.largeTitle)
+        Text("\(entry.count)")
+            .font(.largeTitle)
     }
 }
 
@@ -54,30 +58,19 @@ struct CounterWidget: Widget {
     let kind: String = "CounterWidget"
 
     var body: some WidgetConfiguration {
-        AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
+        AppIntentConfiguration(
+            kind: kind,
+            intent: ConfigurationAppIntent.self,
+            provider: Provider()
+        ) { entry in
             CounterWidgetEntryView(entry: entry)
                 .containerBackground(.fill.tertiary, for: .widget)
         }
     }
 }
 
-extension ConfigurationAppIntent {
-    fileprivate static var smiley: ConfigurationAppIntent {
-        let intent = ConfigurationAppIntent()
-        intent.favoriteEmoji = "😀"
-        return intent
-    }
-    
-    fileprivate static var starEyes: ConfigurationAppIntent {
-        let intent = ConfigurationAppIntent()
-        intent.favoriteEmoji = "🤩"
-        return intent
-    }
-}
-
 #Preview(as: .systemSmall) {
     CounterWidget()
 } timeline: {
-    SimpleEntry(date: .now, configuration: .smiley)
-    SimpleEntry(date: .now, configuration: .starEyes)
+    SimpleEntry(date: .now, count: 0)
 }
