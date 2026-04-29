@@ -14,13 +14,13 @@ Expo app with a local native module that syncs a counter value to an iOS Widget.
 
 ```mermaid
 flowchart TD
-  A[React Native App\nApp.tsx] -->|Counter.setCount(n)| B[Expo Native Module\nmodules/counter/ios/counterModule.swift]
-  B --> C[App Group Shared Container\ncount.txt]
-  B --> D[WidgetCenter.reloadAllTimelines()]
-  C --> E[CounterWidget Extension\nios/CounterWidget/*]
+  A["React Native App<br/>App.tsx"] -->|"Counter.setCount(n)"| B["Expo Native Module<br/>modules/counter/ios/counterModule.swift"]
+  B --> C["App Group Shared Container<br/>count.txt"]
+  B --> D["WidgetCenter.reloadAllTimelines()"]
+  C --> E["CounterWidget Extension<br/>ios/CounterWidget/*"]
   D --> E
-  E --> F[Home Screen Widget]
-  E --> G[Lock Screen Widget]
+  E --> F["Home Screen Widget"]
+  E --> G["Lock Screen Widget"]
 ```
 
 ## Data flow (button tap -> widget update)
