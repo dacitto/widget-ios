@@ -4,6 +4,7 @@ const path = require("node:path");
 const {
   createRunOncePlugin,
   withDangerousMod,
+  withEntitlementsPlist,
   withXcodeProject,
 } = require("expo/config-plugins");
 
@@ -135,6 +136,19 @@ const withCounterWidget = (config, props = {}) => {
   config.extra = config.extra ?? {};
   config.extra.counterWidget = resolvedProps;
 
+  config = withEntitlementsPlist(config, (modConfig) => {
+    const key = "com.apple.security.application-groups";
+    const currentGroups = Array.isArray(modConfig.modResults[key])
+      ? modConfig.modResults[key]
+      : [];
+
+    if (!currentGroups.includes(resolvedProps.appGroup)) {
+      modConfig.modResults[key] = [...currentGroups, resolvedProps.appGroup];
+    }
+
+    return modConfig;
+  });
+
   config = withDangerousMod(config, ["ios", async (modConfig) => {
     const projectRoot = modConfig.modRequest.projectRoot;
     const iosRoot = modConfig.modRequest.platformProjectRoot;
@@ -157,6 +171,10 @@ const withCounterWidget = (config, props = {}) => {
       "CounterWidget-Info.plist"
     );
     fs.copyFileSync(infoPlistTemplatePath, path.join(destinationWidgetRoot, "Info.plist"));
+
+    const sharedConfigPath = path.join(destinationWidgetRoot, "SharedConfig.swift");
+    const sharedConfigContents = `import Foundation\n\nenum SharedConfig {\n    static let appGroupIdentifier = "${resolvedProps.appGroup}"\n    static let countFileName = "count.txt"\n}\n`;
+    fs.writeFileSync(sharedConfigPath, sharedConfigContents, "utf8");
 
     const entitlementsContent = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n<plist version="1.0">\n<dict>\n\t<key>com.apple.security.application-groups</key>\n\t<array>\n\t\t<string>${resolvedProps.appGroup}</string>\n\t</array>\n</dict>\n</plist>\n`;
     fs.writeFileSync(destinationEntitlements, entitlementsContent, "utf8");
