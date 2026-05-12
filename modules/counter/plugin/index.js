@@ -1,11 +1,131 @@
 const fs = require("node:fs");
 const path = require("node:path");
 
-const { createRunOncePlugin, withDangerousMod } = require("expo/config-plugins");
+const {
+  createRunOncePlugin,
+  withDangerousMod,
+  withXcodeProject,
+} = require("expo/config-plugins");
 
 const pkg = require("../../../package.json");
 
+function getBuildPhaseUuidByTargetUuid(project, targetUuid, phaseIsa) {
+  const nativeTarget = project.pbxNativeTargetSection()[targetUuid];
+  if (!nativeTarget || !Array.isArray(nativeTarget.buildPhases)) {
+    return null;
+  }
+
+  const phases = project.hash.project.objects[phaseIsa] || {};
+  for (const phaseRef of nativeTarget.buildPhases) {
+    const phase = phases[phaseRef.value];
+    if (phase) {
+      return phaseRef.value;
+    }
+  }
+  return null;
+}
+
+function ensureWidgetSourcesMembership(project, widgetFiles, widgetName, widgetTargetUuid) {
+  const objects = project.hash.project.objects;
+  const fileRefs = project.pbxFileReferenceSection();
+  const buildFiles = project.pbxBuildFileSection();
+  const sourcesPhases = objects.PBXSourcesBuildPhase || {};
+  const nativeTargets = project.pbxNativeTargetSection();
+
+  const mainTarget = project.getFirstTarget();
+  const mainTargetUuid = mainTarget?.uuid;
+  const mainSourcesUuid = mainTargetUuid
+    ? getBuildPhaseUuidByTargetUuid(project, mainTargetUuid, "PBXSourcesBuildPhase")
+    : null;
+  const widgetSourcesUuid = getBuildPhaseUuidByTargetUuid(
+    project,
+    widgetTargetUuid,
+    "PBXSourcesBuildPhase"
+  );
+
+  if (!widgetSourcesUuid) return;
+
+  const sourceMap = new Map(
+    widgetFiles.map((name) => [name, `${widgetName}/${name}`])
+  );
+
+  const fileRefByName = new Map();
+  Object.entries(fileRefs).forEach(([uuid, ref]) => {
+    if (!ref || typeof ref !== "object") return;
+    const refPath = String(ref.path || "").replaceAll('"', "");
+    const refName = String(ref.name || "").replaceAll('"', "");
+
+    for (const [fileName, groupPath] of sourceMap.entries()) {
+      if (
+        refPath === fileName ||
+        refPath === groupPath ||
+        refName === fileName
+      ) {
+        fileRefByName.set(fileName, uuid);
+      }
+    }
+  });
+
+  const widgetSourcePhase = sourcesPhases[widgetSourcesUuid];
+  if (!widgetSourcePhase.files) widgetSourcePhase.files = [];
+
+  for (const [fileName, fileRefUuid] of fileRefByName.entries()) {
+    let buildFileUuid = null;
+    Object.entries(buildFiles).forEach(([uuid, buildFile]) => {
+      if (!buildFile || typeof buildFile !== "object") return;
+      if (buildFile.fileRef === fileRefUuid) {
+        buildFileUuid = uuid;
+      }
+    });
+
+    if (!buildFileUuid) {
+      buildFileUuid = project.generateUuid();
+      buildFiles[buildFileUuid] = {
+        isa: "PBXBuildFile",
+        fileRef: fileRefUuid,
+      };
+      buildFiles[`${buildFileUuid}_comment`] = `${fileName} in Sources`;
+    }
+
+    const alreadyInWidgetSources = widgetSourcePhase.files.some(
+      (entry) => entry.value === buildFileUuid
+    );
+    if (!alreadyInWidgetSources) {
+      widgetSourcePhase.files.push({
+        value: buildFileUuid,
+        comment: `${fileName} in Sources`,
+      });
+    }
+
+    if (mainSourcesUuid && sourcesPhases[mainSourcesUuid]?.files) {
+      sourcesPhases[mainSourcesUuid].files = sourcesPhases[mainSourcesUuid].files.filter(
+        (entry) => entry.value !== buildFileUuid
+      );
+    }
+  }
+}
+
+function ensureTargetBuildPhases(project, targetUuid) {
+  const nativeTarget = project.pbxNativeTargetSection()[targetUuid];
+  if (!nativeTarget) return;
+
+  const hasSources = Boolean(getBuildPhaseUuidByTargetUuid(project, targetUuid, "PBXSourcesBuildPhase"));
+  const hasFrameworks = Boolean(getBuildPhaseUuidByTargetUuid(project, targetUuid, "PBXFrameworksBuildPhase"));
+  const hasResources = Boolean(getBuildPhaseUuidByTargetUuid(project, targetUuid, "PBXResourcesBuildPhase"));
+
+  if (!hasSources) {
+    project.addBuildPhase([], "PBXSourcesBuildPhase", "Sources", targetUuid);
+  }
+  if (!hasFrameworks) {
+    project.addBuildPhase([], "PBXFrameworksBuildPhase", "Frameworks", targetUuid);
+  }
+  if (!hasResources) {
+    project.addBuildPhase([], "PBXResourcesBuildPhase", "Resources", targetUuid);
+  }
+}
+
 const withCounterWidget = (config, props = {}) => {
+  const appBundleIdentifier = config.ios?.bundleIdentifier;
   const resolvedProps = {
     appGroup: props.appGroup ?? "group.com.widgetios.counter",
     widgetName: props.widgetName ?? "CounterWidget",
@@ -43,6 +163,99 @@ const withCounterWidget = (config, props = {}) => {
 
     return modConfig;
   }]);
+
+  config = withXcodeProject(config, (modConfig) => {
+    const project = modConfig.modResults;
+    const projectRoot = modConfig.modRequest.projectRoot;
+    const iosRoot = modConfig.modRequest.platformProjectRoot;
+    const widgetName = resolvedProps.widgetName;
+    const widgetTargetName = resolvedProps.widgetBundleIdSuffix;
+
+    let target = project.pbxTargetByName(widgetTargetName);
+    if (!target) {
+      target = project.addTarget(widgetTargetName, "app_extension", widgetName, widgetName);
+    }
+
+    const widgetTargetUuid = target.uuid;
+    ensureTargetBuildPhases(project, widgetTargetUuid);
+
+    const widgetFiles = [
+      "AppIntent.swift",
+      "CounterIntent.swift",
+      "CounterWidget.swift",
+      "CounterWidgetBundle.swift",
+      "SharedConfig.swift",
+    ];
+
+    const groupKey = project.findPBXGroupKey({ name: widgetName });
+    let groupUuid = groupKey;
+    if (!groupUuid) {
+      const group = project.addPbxGroup([], widgetName, widgetName);
+      groupUuid = group.uuid;
+      const rootGroupKey = project.getFirstProject().firstProject.mainGroup;
+      project.addToPbxGroup(groupUuid, rootGroupKey);
+    }
+
+    const fileReferences = project.pbxFileReferenceSection();
+    widgetFiles.forEach((fileName) => {
+      const relativePath = `${widgetName}/${fileName}`;
+      const hasReference = Object.values(fileReferences).some(
+        (ref) => ref && (ref.path === `"${fileName}"` || ref.path === fileName || ref.path === `"${relativePath}"` || ref.path === relativePath)
+      );
+      if (!hasReference) {
+        project.addSourceFile(fileName, { target: widgetTargetUuid }, groupUuid);
+      }
+    });
+
+    ensureWidgetSourcesMembership(project, widgetFiles, widgetName, widgetTargetUuid);
+
+    const infoPlistPath = `${widgetName}/Info.plist`;
+    const normalizedSuffix = resolvedProps.widgetBundleIdSuffix
+      .replace(/[^a-zA-Z0-9.]/g, "")
+      .toLowerCase();
+    const productBundleIdentifier = appBundleIdentifier
+      ? `${appBundleIdentifier}.${normalizedSuffix}`
+      : `$(PRODUCT_BUNDLE_IDENTIFIER).${normalizedSuffix}`;
+    const buildConfigurations = project.pbxXCBuildConfigurationSection();
+
+    Object.keys(buildConfigurations).forEach((key) => {
+      const buildConfig = buildConfigurations[key];
+      if (!buildConfig || typeof buildConfig !== "object") return;
+      if (!buildConfig.buildSettings) return;
+
+      const productName = String(buildConfig.buildSettings.PRODUCT_NAME || "").replaceAll('"', "");
+      const infoPlist = String(buildConfig.buildSettings.INFOPLIST_FILE || "").replaceAll('"', "");
+      const entitlements = String(buildConfig.buildSettings.CODE_SIGN_ENTITLEMENTS || "").replaceAll('"', "");
+      const isWidgetConfig =
+        productName === widgetTargetName ||
+        infoPlist === infoPlistPath ||
+        entitlements === `${widgetTargetName}.entitlements`;
+      if (!isWidgetConfig) return;
+
+      buildConfig.buildSettings.INFOPLIST_FILE = infoPlistPath;
+      buildConfig.buildSettings.PRODUCT_BUNDLE_IDENTIFIER = productBundleIdentifier;
+      buildConfig.buildSettings.CODE_SIGN_ENTITLEMENTS = `${widgetTargetName}.entitlements`;
+      buildConfig.buildSettings.SKIP_INSTALL = "YES";
+      buildConfig.buildSettings.SWIFT_VERSION = "5.0";
+      buildConfig.buildSettings.IPHONEOS_DEPLOYMENT_TARGET = "17.0";
+      buildConfig.buildSettings.APPLICATION_EXTENSION_API_ONLY = "YES";
+      buildConfig.buildSettings.CURRENT_PROJECT_VERSION = "1";
+      buildConfig.buildSettings.MARKETING_VERSION = "1.0.0";
+    });
+
+    const infoPlistTemplatePath = path.join(
+      projectRoot,
+      "modules",
+      "counter",
+      "ios-widget",
+      "templates",
+      "CounterWidget-Info.plist"
+    );
+    const infoPlistDestinationPath = path.join(iosRoot, widgetName, "Info.plist");
+    fs.copyFileSync(infoPlistTemplatePath, infoPlistDestinationPath);
+
+    return modConfig;
+  });
 
   return config;
 };

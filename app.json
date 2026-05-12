@@ -14,7 +14,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.dacitto.widget-ios"
+      "bundleIdentifier": "com.dacitto.widgetios"
     },
     "android": {
       "adaptiveIcon": {
