@@ -27,6 +27,16 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "./modules/counter/app.plugin.js",
+        {
+          "appGroup": "group.com.widgetios.counter",
+          "widgetName": "CounterWidget",
+          "widgetBundleIdSuffix": "CounterWidgetExtension"
+        }
+      ]
+    ]
   }
 }
