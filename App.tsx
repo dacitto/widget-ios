@@ -23,7 +23,13 @@ export default function App() {
 
   useEffect(() => {
     const initializeCounter = async () => {
-      await syncCount(0);
+      try {
+        const initialCount = await Counter.getCount();
+        setCount(typeof initialCount === "number" ? initialCount : 0);
+      } catch (error) {
+        setCount(0);
+        console.error("Failed to load counter from shared storage:", error);
+      }
     };
 
     initializeCounter();
