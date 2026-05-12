@@ -1,22 +1,15 @@
-//
-//  CounterWidget.swift
-//  CounterWidget
-//
-//  Created by Salah Eddine Daci on 28/4/2026.
-//
-
 import WidgetKit
 import SwiftUI
 import AppIntents
 
 func readCountFromSharedFile() -> Int {
     guard let containerURL = FileManager.default.containerURL(
-        forSecurityApplicationGroupIdentifier: "group.com.widgetios.counter"
+        forSecurityApplicationGroupIdentifier: SharedConfig.appGroupIdentifier
     ) else {
         return 0
     }
 
-    let fileURL = containerURL.appendingPathComponent("count.txt")
+    let fileURL = containerURL.appendingPathComponent(SharedConfig.countFileName)
 
     guard let content = try? String(contentsOf: fileURL, encoding: .utf8),
           let count = Int(content.trimmingCharacters(in: .whitespacesAndNewlines)) else {
@@ -49,27 +42,27 @@ struct SimpleEntry: TimelineEntry {
 struct CounterWidgetEntryView: View {
     var entry: Provider.Entry
 
-  var body: some View {
-      VStack(spacing: 12) {
-          Text("\(entry.count)")
-              .font(.largeTitle)
+    var body: some View {
+        VStack(spacing: 12) {
+            Text("\(entry.count)")
+                .font(.largeTitle)
 
-          HStack(spacing: 12) {
-              Button(intent: DecrementCounterIntent()) {
-                  Text("-")
-                      .font(.title)
-              }
-              .buttonStyle(.plain)
+            HStack(spacing: 12) {
+                Button(intent: DecrementCounterIntent()) {
+                    Text("-")
+                        .font(.title)
+                }
+                .buttonStyle(.plain)
 
-              Button(intent: IncrementCounterIntent()) {
-                  Text("+")
-                      .font(.title)
-              }
-              .buttonStyle(.plain)
-          }
-      }
-      .containerBackground(.fill.tertiary, for: .widget)
-  }
+                Button(intent: IncrementCounterIntent()) {
+                    Text("+")
+                        .font(.title)
+                }
+                .buttonStyle(.plain)
+            }
+        }
+        .containerBackground(.fill.tertiary, for: .widget)
+    }
 }
 
 struct CounterWidget: Widget {

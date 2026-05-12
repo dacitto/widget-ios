@@ -1,10 +1,3 @@
-//
-//  CounterWidgetBundle.swift
-//  CounterWidget
-//
-//  Created by Salah Eddine Daci on 28/4/2026.
-//
-
 import WidgetKit
 import SwiftUI
 

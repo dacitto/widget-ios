@@ -1,21 +1,14 @@
-//
-//  CounterIntent.swift
-//  widgetios
-//
-//  Created by Salah Eddine Daci on 28/4/2026.
-//
-
 import AppIntents
 import WidgetKit
 
 func writeCountToSharedFile(_ count: Int) {
     guard let containerURL = FileManager.default.containerURL(
-        forSecurityApplicationGroupIdentifier: "group.com.widgetios.counter"
+        forSecurityApplicationGroupIdentifier: SharedConfig.appGroupIdentifier
     ) else {
         return
     }
 
-    let fileURL = containerURL.appendingPathComponent("count.txt")
+    let fileURL = containerURL.appendingPathComponent(SharedConfig.countFileName)
 
     try? "\(count)".write(
         to: fileURL,

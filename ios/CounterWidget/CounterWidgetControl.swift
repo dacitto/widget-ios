@@ -1,10 +1,3 @@
-//
-//  CounterWidgetControl.swift
-//  CounterWidget
-//
-//  Created by Salah Eddine Daci on 28/4/2026.
-//
-
 import AppIntents
 import SwiftUI
 import WidgetKit
@@ -42,7 +35,7 @@ extension CounterWidgetControl {
         }
 
         func currentValue(configuration: TimerConfiguration) async throws -> Value {
-            let isRunning = true // Check if the timer is running
+            let isRunning = true
             return CounterWidgetControl.Value(isRunning: isRunning, name: configuration.timerName)
         }
     }
@@ -71,7 +64,6 @@ struct StartTimerIntent: SetValueIntent {
     }
 
     func perform() async throws -> some IntentResult {
-        // Start the timer…
         return .result()
     }
 }

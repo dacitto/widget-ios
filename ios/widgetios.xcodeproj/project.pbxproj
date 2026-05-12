@@ -3,106 +3,41 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		36CF7722F9AC0790AE05F1BC /* libPods-widgetios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52176A2CC4FF33B0D1A932A5 /* libPods-widgetios.a */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		918377266CC227F9CAC996CA /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDA5377D1AD23C9A630B027 /* ExpoModulesProvider.swift */; };
-		9BBA66182FA0B5C60063E07F /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BBA66172FA0B5C60063E07F /* WidgetKit.framework */; };
-		9BBA661A2FA0B5C60063E07F /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BBA66192FA0B5C60063E07F /* SwiftUI.framework */; };
-		9BBA662B2FA0B5C80063E07F /* CounterWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9BBA66162FA0B5C60063E07F /* CounterWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		9D27966FFAC35D5BACF090CF /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 16432D276623EDC7C46BD754 /* PrivacyInfo.xcprivacy */; };
-		AED54DCD3D01AA18BA2A7F11 /* libPods-widgetios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B4DCFBA9831E0D4A6932A1DF /* libPods-widgetios.a */; };
+		52DB057A043F44656C476B33 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B609EB49781A8F3F3B098D98 /* PrivacyInfo.xcprivacy */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
+		EFFF29909C40E33D9C551AF1 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE347BD2642A0C731E9F12D /* ExpoModulesProvider.swift */; };
 		F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11748412D0307B40044C1D9 /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		9BBA66292FA0B5C80063E07F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9BBA66152FA0B5C60063E07F;
-			remoteInfo = CounterWidgetExtension;
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		9BBA662C2FA0B5C80063E07F /* Embed Foundation Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				9BBA662B2FA0B5C80063E07F /* CounterWidgetExtension.appex in Embed Foundation Extensions */,
-			);
-			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		13B07F961A680F5B00A75B9A /* widgetios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = widgetios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = widgetios/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = widgetios/Info.plist; sourceTree = "<group>"; };
-		16432D276623EDC7C46BD754 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = widgetios/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		5DDA5377D1AD23C9A630B027 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-widgetios/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		9BBA66162FA0B5C60063E07F /* CounterWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CounterWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		9BBA66172FA0B5C60063E07F /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
-		9BBA66192FA0B5C60063E07F /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		9BBA663F2FA0B7900063E07F /* CounterWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CounterWidgetExtension.entitlements; sourceTree = "<group>"; };
+		52176A2CC4FF33B0D1A932A5 /* libPods-widgetios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-widgetios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = widgetios/SplashScreen.storyboard; sourceTree = "<group>"; };
-		B4DCFBA9831E0D4A6932A1DF /* libPods-widgetios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-widgetios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B060B2F36190647FCB96AFB1 /* Pods-widgetios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-widgetios.release.xcconfig"; path = "Target Support Files/Pods-widgetios/Pods-widgetios.release.xcconfig"; sourceTree = "<group>"; };
+		B609EB49781A8F3F3B098D98 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = widgetios/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
-		D900D413AA2922DB635EA015 /* Pods-widgetios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-widgetios.debug.xcconfig"; path = "Target Support Files/Pods-widgetios/Pods-widgetios.debug.xcconfig"; sourceTree = "<group>"; };
-		EC4AAD98178049D8A90F073F /* Pods-widgetios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-widgetios.release.xcconfig"; path = "Target Support Files/Pods-widgetios/Pods-widgetios.release.xcconfig"; sourceTree = "<group>"; };
+		BBE347BD2642A0C731E9F12D /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-widgetios/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		D57B067802D4FE2466E3E1DF /* Pods-widgetios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-widgetios.debug.xcconfig"; path = "Target Support Files/Pods-widgetios/Pods-widgetios.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F11748412D0307B40044C1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = widgetios/AppDelegate.swift; sourceTree = "<group>"; };
 		F11748442D0722820044C1D9 /* widgetios-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "widgetios-Bridging-Header.h"; path = "widgetios/widgetios-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		9BBA662F2FA0B5C80063E07F /* Exceptions for "CounterWidget" folder in "CounterWidgetExtension" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 9BBA66152FA0B5C60063E07F /* CounterWidgetExtension */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		9BBA661B2FA0B5C60063E07F /* CounterWidget */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				9BBA662F2FA0B5C80063E07F /* Exceptions for "CounterWidget" folder in "CounterWidgetExtension" target */,
-			);
-			explicitFileTypes = {
-			};
-			explicitFolders = (
-			);
-			path = CounterWidget;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		13B07F8C1A680F5B00A75B9A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AED54DCD3D01AA18BA2A7F11 /* libPods-widgetios.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9BBA66132FA0B5C60063E07F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9BBA661A2FA0B5C60063E07F /* SwiftUI.framework in Frameworks */,
-				9BBA66182FA0B5C60063E07F /* WidgetKit.framework in Frameworks */,
+				36CF7722F9AC0790AE05F1BC /* libPods-widgetios.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,29 +53,44 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				16432D276623EDC7C46BD754 /* PrivacyInfo.xcprivacy */,
+				B609EB49781A8F3F3B098D98 /* PrivacyInfo.xcprivacy */,
 			);
 			name = widgetios;
+			sourceTree = "<group>";
+		};
+		1D0233878BD95634A1E661E9 /* ExpoModulesProviders */ = {
+			isa = PBXGroup;
+			children = (
+				4DFD6E576F38A6577E5D243E /* widgetios */,
+			);
+			name = ExpoModulesProviders;
+			sourceTree = "<group>";
+		};
+		2C81BCEB8157DA05215D2E67 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D57B067802D4FE2466E3E1DF /* Pods-widgetios.debug.xcconfig */,
+				B060B2F36190647FCB96AFB1 /* Pods-widgetios.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				9BBA66172FA0B5C60063E07F /* WidgetKit.framework */,
-				9BBA66192FA0B5C60063E07F /* SwiftUI.framework */,
-				B4DCFBA9831E0D4A6932A1DF /* libPods-widgetios.a */,
+				52176A2CC4FF33B0D1A932A5 /* libPods-widgetios.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		32CC88676759F2F76964ED64 /* Pods */ = {
+		4DFD6E576F38A6577E5D243E /* widgetios */ = {
 			isa = PBXGroup;
 			children = (
-				D900D413AA2922DB635EA015 /* Pods-widgetios.debug.xcconfig */,
-				EC4AAD98178049D8A90F073F /* Pods-widgetios.release.xcconfig */,
+				BBE347BD2642A0C731E9F12D /* ExpoModulesProvider.swift */,
 			);
-			path = Pods;
+			name = widgetios;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -153,14 +103,12 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				9BBA663F2FA0B7900063E07F /* CounterWidgetExtension.entitlements */,
 				13B07FAE1A68108700A75B9A /* widgetios */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				9BBA661B2FA0B5C60063E07F /* CounterWidget */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				32CC88676759F2F76964ED64 /* Pods */,
-				D9A4906B62718153616C7AEF /* ExpoModulesProviders */,
+				2C81BCEB8157DA05215D2E67 /* Pods */,
+				1D0233878BD95634A1E661E9 /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -171,17 +119,8 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* widgetios.app */,
-				9BBA66162FA0B5C60063E07F /* CounterWidgetExtension.appex */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		B5CB20779115A46712818566 /* widgetios */ = {
-			isa = PBXGroup;
-			children = (
-				5DDA5377D1AD23C9A630B027 /* ExpoModulesProvider.swift */,
-			);
-			name = widgetios;
 			sourceTree = "<group>";
 		};
 		BB2F792B24A3F905000567C9 /* Supporting */ = {
@@ -193,14 +132,6 @@
 			path = widgetios/Supporting;
 			sourceTree = "<group>";
 		};
-		D9A4906B62718153616C7AEF /* ExpoModulesProviders */ = {
-			isa = PBXGroup;
-			children = (
-				B5CB20779115A46712818566 /* widgetios */,
-			);
-			name = ExpoModulesProviders;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -208,45 +139,23 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "widgetios" */;
 			buildPhases = (
-				641A047CD3B22D55A89DC116 /* [CP] Check Pods Manifest.lock */,
-				95128E78BD8AC0150E4BBC0C /* [Expo] Configure project */,
+				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
+				72029FCC8C72BC9B45681961 /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				9BBA662C2FA0B5C80063E07F /* Embed Foundation Extensions */,
-				DA999EE909965CF4C169A8FE /* [CP] Embed Pods Frameworks */,
-				4BDCDA05945B9D1F50061650 /* [CP] Copy Pods Resources */,
+				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
+				43A9A7E55038FFFFEF5243C7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				9BBA662A2FA0B5C80063E07F /* PBXTargetDependency */,
 			);
 			name = widgetios;
 			productName = widgetios;
 			productReference = 13B07F961A680F5B00A75B9A /* widgetios.app */;
 			productType = "com.apple.product-type.application";
-		};
-		9BBA66152FA0B5C60063E07F /* CounterWidgetExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9BBA66302FA0B5C80063E07F /* Build configuration list for PBXNativeTarget "CounterWidgetExtension" */;
-			buildPhases = (
-				9BBA66122FA0B5C60063E07F /* Sources */,
-				9BBA66132FA0B5C60063E07F /* Frameworks */,
-				9BBA66142FA0B5C60063E07F /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				9BBA661B2FA0B5C60063E07F /* CounterWidget */,
-			);
-			name = CounterWidgetExtension;
-			productName = CounterWidgetExtension;
-			productReference = 9BBA66162FA0B5C60063E07F /* CounterWidgetExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -254,14 +163,10 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 2600;
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1250;
-					};
-					9BBA66152FA0B5C60063E07F = {
-						CreatedOnToolsVersion = 26.0.1;
 					};
 				};
 			};
@@ -279,7 +184,6 @@
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* widgetios */,
-				9BBA66152FA0B5C60063E07F /* CounterWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -292,14 +196,7 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				9D27966FFAC35D5BACF090CF /* PrivacyInfo.xcprivacy in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9BBA66142FA0B5C60063E07F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				52DB057A043F44656C476B33 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,7 +220,75 @@
 			shellPath = /bin/sh;
 			shellScript = "if [[ -f \"$PODS_ROOT/../.xcode.env\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env\"\nfi\nif [[ -f \"$PODS_ROOT/../.xcode.env.local\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.local\"\nfi\n\n# The project root by default is one level up from the ios directory\nexport PROJECT_ROOT=\"$PROJECT_DIR\"/..\n\nif [[ \"$CONFIGURATION\" = *Debug* ]]; then\n  export SKIP_BUNDLING=1\nfi\nif [[ -z \"$ENTRY_FILE\" ]]; then\n  # Set the entry JS file using the bundler's entry resolution.\n  export ENTRY_FILE=\"$(\"$NODE_BINARY\" -e \"require('expo/scripts/resolveAppEntry')\" \"$PROJECT_ROOT\" ios absolute | tail -n 1)\"\nfi\n\nif [[ -z \"$CLI_PATH\" ]]; then\n  # Use Expo CLI\n  export CLI_PATH=\"$(\"$NODE_BINARY\" --print \"require.resolve('@expo/cli', { paths: [require.resolve('expo/package.json')] })\")\"\nfi\nif [[ -z \"$BUNDLE_COMMAND\" ]]; then\n  # Default Expo CLI command for bundling\n  export BUNDLE_COMMAND=\"export:embed\"\nfi\n\n# Source .xcode.env.updates if it exists to allow\n# SKIP_BUNDLING to be unset if needed\nif [[ -f \"$PODS_ROOT/../.xcode.env.updates\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.updates\"\nfi\n# Source local changes to allow overrides\n# if needed\nif [[ -f \"$PODS_ROOT/../.xcode.env.local\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.local\"\nfi\n\n`\"$NODE_BINARY\" --print \"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\"`\n\n";
 		};
-		4BDCDA05945B9D1F50061650 /* [CP] Copy Pods Resources */ = {
+		08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-widgetios-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		43A9A7E55038FFFFEF5243C7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-widgetios/Pods-widgetios-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/React-Core-prebuilt/React.framework/React",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/ReactNativeDependencies/ReactNativeDependencies.framework/ReactNativeDependencies",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/React.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactNativeDependencies.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-widgetios/Pods-widgetios-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		72029FCC8C72BC9B45681961 /* [Expo] Configure project */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/.xcode.env",
+				"$(SRCROOT)/.xcode.env.local",
+				"$(SRCROOT)/widgetios/widgetios.entitlements",
+				"$(SRCROOT)/Pods/Target Support Files/Pods-widgetios/expo-configure-project.sh",
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(SRCROOT)/Pods/Target Support Files/Pods-widgetios/ExpoModulesProvider.swift",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-widgetios/expo-configure-project.sh\"\n";
+		};
+		800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -349,74 +314,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-widgetios/Pods-widgetios-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		641A047CD3B22D55A89DC116 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-widgetios-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		95128E78BD8AC0150E4BBC0C /* [Expo] Configure project */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/.xcode.env",
-				"$(SRCROOT)/.xcode.env.local",
-				"$(SRCROOT)/widgetios/widgetios.entitlements",
-				"$(SRCROOT)/Pods/Target Support Files/Pods-widgetios/expo-configure-project.sh",
-			);
-			name = "[Expo] Configure project";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(SRCROOT)/Pods/Target Support Files/Pods-widgetios/ExpoModulesProvider.swift",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-widgetios/expo-configure-project.sh\"\n";
-		};
-		DA999EE909965CF4C169A8FE /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-widgetios/Pods-widgetios-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/React-Core-prebuilt/React.framework/React",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/ReactNativeDependencies/ReactNativeDependencies.framework/ReactNativeDependencies",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/React.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactNativeDependencies.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-widgetios/Pods-widgetios-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -425,37 +322,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */,
-				918377266CC227F9CAC996CA /* ExpoModulesProvider.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9BBA66122FA0B5C60063E07F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				EFFF29909C40E33D9C551AF1 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		9BBA662A2FA0B5C80063E07F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9BBA66152FA0B5C60063E07F /* CounterWidgetExtension */;
-			targetProxy = 9BBA66292FA0B5C80063E07F /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D900D413AA2922DB635EA015 /* Pods-widgetios.debug.xcconfig */;
+			baseConfigurationReference = D57B067802D4FE2466E3E1DF /* Pods-widgetios.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = widgetios/widgetios.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 75N56857WQ;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -475,7 +356,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.dacitto.widget-ios";
-				PRODUCT_NAME = "widgetios";
+				PRODUCT_NAME = widgetios;
 				SWIFT_OBJC_BRIDGING_HEADER = "widgetios/widgetios-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -486,13 +367,12 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EC4AAD98178049D8A90F073F /* Pods-widgetios.release.xcconfig */;
+			baseConfigurationReference = B060B2F36190647FCB96AFB1 /* Pods-widgetios.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = widgetios/widgetios.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 75N56857WQ;
 				INFOPLIST_FILE = widgetios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -507,7 +387,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.dacitto.widget-ios";
-				PRODUCT_NAME = "widgetios";
+				PRODUCT_NAME = widgetios;
 				SWIFT_OBJC_BRIDGING_HEADER = "widgetios/widgetios-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -633,103 +513,6 @@
 			};
 			name = Release;
 		};
-		9BBA662D2FA0B5C80063E07F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = CounterWidgetExtension.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 75N56857WQ;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = CounterWidget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = CounterWidget;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.dacitto.widget-ios.CounterWidget";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		9BBA662E2FA0B5C80063E07F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = CounterWidgetExtension.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 75N56857WQ;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = CounterWidget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = CounterWidget;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0;
-				MTL_FAST_MATH = YES;
-				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.dacitto.widget-ios.CounterWidget";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -747,15 +530,6 @@
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
 				83CBBA211A601CBA00E9B192 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9BBA66302FA0B5C80063E07F /* Build configuration list for PBXNativeTarget "CounterWidgetExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9BBA662D2FA0B5C80063E07F /* Debug */,
-				9BBA662E2FA0B5C80063E07F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
