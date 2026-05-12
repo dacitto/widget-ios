@@ -84,9 +84,3 @@ struct CounterWidget: Widget {
         ])
     }
 }
-
-#Preview(as: .systemSmall) {
-    CounterWidget()
-} timeline: {
-    SimpleEntry(date: .now, count: 0)
-}

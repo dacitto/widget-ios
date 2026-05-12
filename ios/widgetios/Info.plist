@@ -27,7 +27,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>com.dacitto.widget-ios</string>
+          <string>com.dacitto.widgetios</string>
         </array>
       </dict>
     </array>

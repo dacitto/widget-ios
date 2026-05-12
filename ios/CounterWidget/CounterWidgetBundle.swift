@@ -5,7 +5,5 @@ import SwiftUI
 struct CounterWidgetBundle: WidgetBundle {
     var body: some Widget {
         CounterWidget()
-        CounterWidgetControl()
-        CounterWidgetLiveActivity()
     }
 }
