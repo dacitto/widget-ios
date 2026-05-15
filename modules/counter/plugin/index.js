@@ -24,6 +24,8 @@ const WIDGET_SOURCE_FILES = [
   "SharedConfig.swift",
 ];
 
+const WIDGET_INFO_PLIST_TEMPLATE = "CounterWidget-Info.plist";
+
 function resolveProps(props = {}) {
   const resolvedProps = {
     appGroup: props.appGroup ?? DEFAULT_PROPS.appGroup,
@@ -69,6 +71,32 @@ function validateProps(props) {
       `[counter plugin] widgetBundleIdSuffix "${props.widgetBundleIdSuffix}" normalizes to an empty value.`
     );
   }
+}
+
+function getWidgetPaths(projectRoot, iosRoot, resolvedProps) {
+  const sourceRoot = path.join(projectRoot, "modules", "counter", "ios-widget");
+  const sourceWidgetRoot = path.join(sourceRoot, "CounterWidget");
+  const sourceTemplatesRoot = path.join(sourceRoot, "templates");
+
+  const destinationWidgetRoot = path.join(iosRoot, resolvedProps.widgetName);
+  const destinationEntitlements = path.join(
+    iosRoot,
+    `${resolvedProps.widgetBundleIdSuffix}.entitlements`
+  );
+
+  const infoPlistTemplatePath = path.join(
+    sourceTemplatesRoot,
+    WIDGET_INFO_PLIST_TEMPLATE
+  );
+  const infoPlistDestinationPath = path.join(destinationWidgetRoot, "Info.plist");
+
+  return {
+    sourceWidgetRoot,
+    destinationWidgetRoot,
+    destinationEntitlements,
+    infoPlistTemplatePath,
+    infoPlistDestinationPath,
+  };
 }
 
 function getBuildPhaseUuidByTargetUuid(project, targetUuid, phaseIsa) {
@@ -210,24 +238,18 @@ const withCounterWidget = (config, props = {}) => {
     const projectRoot = modConfig.modRequest.projectRoot;
     const iosRoot = modConfig.modRequest.platformProjectRoot;
 
-    const sourceRoot = path.join(projectRoot, "modules", "counter", "ios-widget");
-    const sourceWidgetRoot = path.join(sourceRoot, "CounterWidget");
-    const sourceTemplatesRoot = path.join(sourceRoot, "templates");
-
-    const destinationWidgetRoot = path.join(iosRoot, resolvedProps.widgetName);
-    const destinationEntitlements = path.join(
-      iosRoot,
-      `${resolvedProps.widgetBundleIdSuffix}.entitlements`
-    );
+    const {
+      sourceWidgetRoot,
+      destinationWidgetRoot,
+      destinationEntitlements,
+      infoPlistTemplatePath,
+      infoPlistDestinationPath,
+    } = getWidgetPaths(projectRoot, iosRoot, resolvedProps);
 
     fs.mkdirSync(destinationWidgetRoot, { recursive: true });
     fs.cpSync(sourceWidgetRoot, destinationWidgetRoot, { recursive: true, force: true });
 
-    const infoPlistTemplatePath = path.join(
-      sourceTemplatesRoot,
-      "CounterWidget-Info.plist"
-    );
-    fs.copyFileSync(infoPlistTemplatePath, path.join(destinationWidgetRoot, "Info.plist"));
+    fs.copyFileSync(infoPlistTemplatePath, infoPlistDestinationPath);
 
     const sharedConfigPath = path.join(destinationWidgetRoot, "SharedConfig.swift");
     const sharedConfigContents = `import Foundation\n\nenum SharedConfig {\n    static let appGroupIdentifier = "${resolvedProps.appGroup}"\n    static let countFileName = "count.txt"\n}\n`;
@@ -241,8 +263,6 @@ const withCounterWidget = (config, props = {}) => {
 
   config = withXcodeProject(config, (modConfig) => {
     const project = modConfig.modResults;
-    const projectRoot = modConfig.modRequest.projectRoot;
-    const iosRoot = modConfig.modRequest.platformProjectRoot;
     const widgetName = resolvedProps.widgetName;
     const widgetTargetName = resolvedProps.widgetBundleIdSuffix;
 
@@ -309,17 +329,6 @@ const withCounterWidget = (config, props = {}) => {
       buildConfig.buildSettings.CURRENT_PROJECT_VERSION = "1";
       buildConfig.buildSettings.MARKETING_VERSION = "1.0.0";
     });
-
-    const infoPlistTemplatePath = path.join(
-      projectRoot,
-      "modules",
-      "counter",
-      "ios-widget",
-      "templates",
-      "CounterWidget-Info.plist"
-    );
-    const infoPlistDestinationPath = path.join(iosRoot, widgetName, "Info.plist");
-    fs.copyFileSync(infoPlistTemplatePath, infoPlistDestinationPath);
 
     return modConfig;
   });
