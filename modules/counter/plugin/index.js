@@ -214,6 +214,32 @@ function ensureTargetBuildPhases(project, targetUuid) {
   }
 }
 
+function getBuildConfigurationsForTarget(project, targetUuid) {
+  const nativeTarget = project.pbxNativeTargetSection()[targetUuid];
+  const buildConfigListUuid = nativeTarget?.buildConfigurationList;
+  if (!buildConfigListUuid) {
+    return [];
+  }
+
+  const buildConfigLists = project.pbxXCConfigurationList();
+  const listEntry = buildConfigLists[buildConfigListUuid];
+  const configRefs = listEntry?.buildConfigurations;
+  if (!Array.isArray(configRefs)) {
+    return [];
+  }
+
+  const allBuildConfigurations = project.pbxXCBuildConfigurationSection();
+  return configRefs
+    .map((entry) => {
+      const configUuid = entry?.value;
+      if (!configUuid) return null;
+      const config = allBuildConfigurations[configUuid];
+      if (!config || typeof config !== "object") return null;
+      return config;
+    })
+    .filter(Boolean);
+}
+
 const withCounterWidget = (config, props = {}) => {
   const appBundleIdentifier = config.ios?.bundleIdentifier;
   const resolvedProps = resolveProps(props);
@@ -303,22 +329,9 @@ const withCounterWidget = (config, props = {}) => {
     const productBundleIdentifier = appBundleIdentifier
       ? `${appBundleIdentifier}.${normalizedSuffix}`
       : `$(PRODUCT_BUNDLE_IDENTIFIER).${normalizedSuffix}`;
-    const buildConfigurations = project.pbxXCBuildConfigurationSection();
-
-    Object.keys(buildConfigurations).forEach((key) => {
-      const buildConfig = buildConfigurations[key];
-      if (!buildConfig || typeof buildConfig !== "object") return;
-      if (!buildConfig.buildSettings) return;
-
-      const productName = String(buildConfig.buildSettings.PRODUCT_NAME || "").replaceAll('"', "");
-      const infoPlist = String(buildConfig.buildSettings.INFOPLIST_FILE || "").replaceAll('"', "");
-      const entitlements = String(buildConfig.buildSettings.CODE_SIGN_ENTITLEMENTS || "").replaceAll('"', "");
-      const isWidgetConfig =
-        productName === widgetTargetName ||
-        infoPlist === infoPlistPath ||
-        entitlements === `${widgetTargetName}.entitlements`;
-      if (!isWidgetConfig) return;
-
+    const buildConfigurations = getBuildConfigurationsForTarget(project, widgetTargetUuid);
+    buildConfigurations.forEach((buildConfig) => {
+      buildConfig.buildSettings = buildConfig.buildSettings || {};
       buildConfig.buildSettings.INFOPLIST_FILE = infoPlistPath;
       buildConfig.buildSettings.PRODUCT_BUNDLE_IDENTIFIER = productBundleIdentifier;
       buildConfig.buildSettings.CODE_SIGN_ENTITLEMENTS = `${widgetTargetName}.entitlements`;
