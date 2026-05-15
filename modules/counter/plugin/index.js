@@ -25,16 +25,50 @@ const WIDGET_SOURCE_FILES = [
 ];
 
 function resolveProps(props = {}) {
-  return {
+  const resolvedProps = {
     appGroup: props.appGroup ?? DEFAULT_PROPS.appGroup,
     widgetName: props.widgetName ?? DEFAULT_PROPS.widgetName,
     widgetBundleIdSuffix:
       props.widgetBundleIdSuffix ?? DEFAULT_PROPS.widgetBundleIdSuffix,
   };
+
+  validateProps(resolvedProps);
+
+  return resolvedProps;
 }
 
 function normalizeBundleIdSuffix(value) {
   return value.replace(/[^a-zA-Z0-9.]/g, "").toLowerCase();
+}
+
+function validateProps(props) {
+  const appGroupPattern = /^group\.[A-Za-z0-9.-]+$/;
+  if (!appGroupPattern.test(props.appGroup)) {
+    throw new Error(
+      `[counter plugin] Invalid appGroup "${props.appGroup}". Expected format like "group.com.example.app".`
+    );
+  }
+
+  const xcodeNamePattern = /^[A-Za-z][A-Za-z0-9_]*$/;
+  if (!xcodeNamePattern.test(props.widgetName)) {
+    throw new Error(
+      `[counter plugin] Invalid widgetName "${props.widgetName}". Use letters, numbers, and underscores, starting with a letter.`
+    );
+  }
+
+  const suffixPattern = /^[A-Za-z0-9._-]+$/;
+  if (!suffixPattern.test(props.widgetBundleIdSuffix)) {
+    throw new Error(
+      `[counter plugin] Invalid widgetBundleIdSuffix "${props.widgetBundleIdSuffix}". Use letters, numbers, dot, underscore, or hyphen.`
+    );
+  }
+
+  const normalizedSuffix = normalizeBundleIdSuffix(props.widgetBundleIdSuffix);
+  if (!normalizedSuffix) {
+    throw new Error(
+      `[counter plugin] widgetBundleIdSuffix "${props.widgetBundleIdSuffix}" normalizes to an empty value.`
+    );
+  }
 }
 
 function getBuildPhaseUuidByTargetUuid(project, targetUuid, phaseIsa) {
