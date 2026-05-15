@@ -10,6 +10,33 @@ const {
 
 const pkg = require("../../../package.json");
 
+const DEFAULT_PROPS = {
+  appGroup: "group.com.widgetios.counter",
+  widgetName: "CounterWidget",
+  widgetBundleIdSuffix: "CounterWidgetExtension",
+};
+
+const WIDGET_SOURCE_FILES = [
+  "AppIntent.swift",
+  "CounterIntent.swift",
+  "CounterWidget.swift",
+  "CounterWidgetBundle.swift",
+  "SharedConfig.swift",
+];
+
+function resolveProps(props = {}) {
+  return {
+    appGroup: props.appGroup ?? DEFAULT_PROPS.appGroup,
+    widgetName: props.widgetName ?? DEFAULT_PROPS.widgetName,
+    widgetBundleIdSuffix:
+      props.widgetBundleIdSuffix ?? DEFAULT_PROPS.widgetBundleIdSuffix,
+  };
+}
+
+function normalizeBundleIdSuffix(value) {
+  return value.replace(/[^a-zA-Z0-9.]/g, "").toLowerCase();
+}
+
 function getBuildPhaseUuidByTargetUuid(project, targetUuid, phaseIsa) {
   const nativeTarget = project.pbxNativeTargetSection()[targetUuid];
   if (!nativeTarget || !Array.isArray(nativeTarget.buildPhases)) {
@@ -127,11 +154,7 @@ function ensureTargetBuildPhases(project, targetUuid) {
 
 const withCounterWidget = (config, props = {}) => {
   const appBundleIdentifier = config.ios?.bundleIdentifier;
-  const resolvedProps = {
-    appGroup: props.appGroup ?? "group.com.widgetios.counter",
-    widgetName: props.widgetName ?? "CounterWidget",
-    widgetBundleIdSuffix: props.widgetBundleIdSuffix ?? "CounterWidgetExtension",
-  };
+  const resolvedProps = resolveProps(props);
 
   config.extra = config.extra ?? {};
   config.extra.counterWidget = resolvedProps;
@@ -197,13 +220,7 @@ const withCounterWidget = (config, props = {}) => {
     const widgetTargetUuid = target.uuid;
     ensureTargetBuildPhases(project, widgetTargetUuid);
 
-    const widgetFiles = [
-      "AppIntent.swift",
-      "CounterIntent.swift",
-      "CounterWidget.swift",
-      "CounterWidgetBundle.swift",
-      "SharedConfig.swift",
-    ];
+    const widgetFiles = WIDGET_SOURCE_FILES;
 
     const groupKey = project.findPBXGroupKey({ name: widgetName });
     let groupUuid = groupKey;
@@ -228,9 +245,7 @@ const withCounterWidget = (config, props = {}) => {
     ensureWidgetSourcesMembership(project, widgetFiles, widgetName, widgetTargetUuid);
 
     const infoPlistPath = `${widgetName}/Info.plist`;
-    const normalizedSuffix = resolvedProps.widgetBundleIdSuffix
-      .replace(/[^a-zA-Z0-9.]/g, "")
-      .toLowerCase();
+    const normalizedSuffix = normalizeBundleIdSuffix(resolvedProps.widgetBundleIdSuffix);
     const productBundleIdentifier = appBundleIdentifier
       ? `${appBundleIdentifier}.${normalizedSuffix}`
       : `$(PRODUCT_BUNDLE_IDENTIFIER).${normalizedSuffix}`;
