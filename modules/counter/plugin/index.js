@@ -339,8 +339,6 @@ const withCounterWidget = (config, props = {}) => {
       buildConfig.buildSettings.SWIFT_VERSION = "5.0";
       buildConfig.buildSettings.IPHONEOS_DEPLOYMENT_TARGET = "17.0";
       buildConfig.buildSettings.APPLICATION_EXTENSION_API_ONLY = "YES";
-      buildConfig.buildSettings.CURRENT_PROJECT_VERSION = "1";
-      buildConfig.buildSettings.MARKETING_VERSION = "1.0.0";
     });
 
     return modConfig;
