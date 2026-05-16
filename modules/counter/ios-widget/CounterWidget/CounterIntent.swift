@@ -1,21 +1,14 @@
-//
-//  CounterIntent.swift
-//  widgetios
-//
-//  Created by Salah Eddine Daci on 28/4/2026.
-//
-
 import AppIntents
 import WidgetKit
 
 func writeCountToSharedFile(_ count: Int) {
     guard let containerURL = FileManager.default.containerURL(
-        forSecurityApplicationGroupIdentifier: "group.com.widgetios.counter"
+        forSecurityApplicationGroupIdentifier: SharedConfig.appGroupIdentifier
     ) else {
         return
     }
 
-    let fileURL = containerURL.appendingPathComponent("count.txt")
+    let fileURL = containerURL.appendingPathComponent(SharedConfig.countFileName)
 
     try? "\(count)".write(
         to: fileURL,
@@ -42,6 +35,15 @@ struct DecrementCounterIntent: AppIntent {
     func perform() async throws -> some IntentResult {
         let current = readCountFromSharedFile()
         writeCountToSharedFile(max(0, current - 1))
+        return .result()
+    }
+}
+
+struct ResetCounterIntent: AppIntent {
+    static var title: LocalizedStringResource = "Reset Counter"
+
+    func perform() async throws -> some IntentResult {
+        writeCountToSharedFile(0)
         return .result()
     }
 }
