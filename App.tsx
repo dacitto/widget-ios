@@ -5,6 +5,7 @@ import Counter from "./modules/counter";
 
 export default function App() {
   const [count, setCount] = useState(0);
+  const [showResetButton, setShowResetButton] = useState(false);
   const [syncError, setSyncError] = useState<string | null>(null);
 
   const syncCount = async (nextCount: number) => {
@@ -23,9 +24,12 @@ export default function App() {
     const initializeCounter = async () => {
       try {
         const initialCount = await Counter.getCount();
+        const showReset = await Counter.getShowResetButton();
         setCount(typeof initialCount === "number" ? initialCount : 0);
+        setShowResetButton(Boolean(showReset));
       } catch (error) {
         setCount(0);
+        setShowResetButton(false);
         console.error("Failed to load counter from shared storage:", error);
       }
     };
@@ -39,6 +43,10 @@ export default function App() {
 
   const handleDecrement = async () => {
     await syncCount(Math.max(0, count - 1));
+  };
+
+  const handleReset = async () => {
+    await syncCount(0);
   };
 
   return (
@@ -55,6 +63,11 @@ export default function App() {
         <Pressable style={styles.button} onPress={handleIncrement}>
           <Text style={styles.buttonText}>+</Text>
         </Pressable>
+        {showResetButton ? (
+          <Pressable style={[styles.button, styles.resetButton]} onPress={handleReset}>
+            <Text style={styles.resetButtonText}>Reset</Text>
+          </Pressable>
+        ) : null}
       </View>
       {syncError ? <Text style={styles.errorText}>{syncError}</Text> : null}
       <StatusBar style="auto" />
@@ -98,6 +111,16 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 36,
     lineHeight: 40,
+  },
+  resetButton: {
+    width: 92,
+    borderRadius: 20,
+    backgroundColor: "#ef8354",
+  },
+  resetButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "700",
   },
   errorText: {
     color: "#b00020",

@@ -19,17 +19,35 @@ func readCountFromSharedFile() -> Int {
     return count
 }
 
+func persistWidgetConfiguration(_ configuration: ConfigurationAppIntent) {
+    guard let defaults = UserDefaults(suiteName: SharedConfig.appGroupIdentifier) else {
+        return
+    }
+
+    defaults.set(configuration.showResetButton, forKey: SharedConfig.showResetButtonKey)
+}
+
 struct Provider: AppIntentTimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), count: 0)
+        SimpleEntry(date: Date(), count: 0, showResetButton: false)
     }
 
     func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
-        SimpleEntry(date: Date(), count: readCountFromSharedFile())
+        persistWidgetConfiguration(configuration)
+        return SimpleEntry(
+            date: Date(),
+            count: readCountFromSharedFile(),
+            showResetButton: configuration.showResetButton
+        )
     }
 
     func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
-        let entry = SimpleEntry(date: Date(), count: readCountFromSharedFile())
+        persistWidgetConfiguration(configuration)
+        let entry = SimpleEntry(
+            date: Date(),
+            count: readCountFromSharedFile(),
+            showResetButton: configuration.showResetButton
+        )
         return Timeline(entries: [entry], policy: .never)
     }
 }
@@ -37,6 +55,7 @@ struct Provider: AppIntentTimelineProvider {
 struct SimpleEntry: TimelineEntry {
     let date: Date
     let count: Int
+    let showResetButton: Bool
 }
 
 struct CounterWidgetEntryView: View {
@@ -59,6 +78,15 @@ struct CounterWidgetEntryView: View {
                         .font(.title)
                 }
                 .buttonStyle(.plain)
+
+                if entry.showResetButton {
+                    Button(intent: ResetCounterIntent()) {
+                        Text("Reset")
+                            .font(.caption)
+                            .fontWeight(.semibold)
+                    }
+                    .buttonStyle(.plain)
+                }
             }
         }
         .containerBackground(.fill.tertiary, for: .widget)

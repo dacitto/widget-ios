@@ -2,9 +2,13 @@ import WidgetKit
 import AppIntents
 
 struct ConfigurationAppIntent: WidgetConfigurationIntent {
-    static var title: LocalizedStringResource { "Configuration" }
-    static var description: IntentDescription { "This is an example widget." }
+    static var title: LocalizedStringResource { "Counter Settings" }
+    static var description: IntentDescription { "Configure counter widget behavior." }
 
-    @Parameter(title: "Favorite Emoji", default: "😃")
-    var favoriteEmoji: String
+    @Parameter(title: "Show Reset Button")
+    var showResetButton: Bool
+
+    init() {
+        self.showResetButton = false
+    }
 }

@@ -38,3 +38,12 @@ struct DecrementCounterIntent: AppIntent {
         return .result()
     }
 }
+
+struct ResetCounterIntent: AppIntent {
+    static var title: LocalizedStringResource = "Reset Counter"
+
+    func perform() async throws -> some IntentResult {
+        writeCountToSharedFile(0)
+        return .result()
+    }
+}

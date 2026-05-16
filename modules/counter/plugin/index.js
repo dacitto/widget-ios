@@ -221,7 +221,7 @@ const withCounterWidget = (config, props = {}) => {
             node_fs_1.default.cpSync(sourceWidgetRoot, destinationWidgetRoot, { recursive: true, force: true });
             node_fs_1.default.copyFileSync(infoPlistTemplatePath, infoPlistDestinationPath);
             const sharedConfigPath = node_path_1.default.join(destinationWidgetRoot, "SharedConfig.swift");
-            const sharedConfigContents = `import Foundation\n\nenum SharedConfig {\n    static let appGroupIdentifier = "${resolvedProps.appGroup}"\n    static let countFileName = "count.txt"\n}\n`;
+            const sharedConfigContents = `import Foundation\n\nenum SharedConfig {\n    static let appGroupIdentifier = "${resolvedProps.appGroup}"\n    static let countFileName = "count.txt"\n    static let showResetButtonKey = "counterWidget.showResetButton"\n}\n`;
             node_fs_1.default.writeFileSync(sharedConfigPath, sharedConfigContents, "utf8");
             const entitlementsContent = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n<plist version="1.0">\n<dict>\n\t<key>com.apple.security.application-groups</key>\n\t<array>\n\t\t<string>${resolvedProps.appGroup}</string>\n\t</array>\n</dict>\n</plist>\n`;
             node_fs_1.default.writeFileSync(destinationEntitlements, entitlementsContent, "utf8");
