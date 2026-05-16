@@ -1,9 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { requireNativeModule } from "expo-modules-core";
 import { useEffect, useState } from "react";
-
-const Counter = requireNativeModule("counter");
+import Counter from "./modules/counter";
 
 export default function App() {
   const [count, setCount] = useState(0);
